@@ -2,50 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>The Golden Whisk | Artisan Patisserie</title>
+    <title>The Golden Whisk | Artisan Bakery</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="promo-bar">
-    Use Code <strong>WHISK10</strong> for 10% off your first order! 🧁
-</div>
-
-<div id="cartDrawer" class="cart-drawer">
-    <div class="cart-header">
-        <h2>Your Basket</h2>
-        <button onclick="toggleCart()" class="close-btn">&times;</button>
-    </div>
-    <div id="cartItems" class="cart-items-container">
-        <p class="empty-msg">Your basket is empty.</p>
-    </div>
-    <div class="cart-extras" id="cartExtras" style="display:none; padding: 20px;">
-        <label>Cake Message (Optional):</label>
-        <textarea id="cakeMessage" placeholder="Happy Birthday..."></textarea>
-    </div>
-    <div class="cart-footer">
-        <div class="total-row">
-            <span>Total:</span>
-            <span id="cartTotal">$0.00</span>
-        </div>
-        <button class="promo-link" onclick="applyDiscount()">Apply Promo Code</button>
-        <button class="checkout-btn" onclick="proceedToCheckout()">Checkout</button>
-    </div>
+<div class="user-bar">
+    <span id="welcomeMsg">Welcome, Guest</span>
+    <button id="authBtn" onclick="toggleAuthModal()">Login / Sign Up</button>
 </div>
 
 <nav class="navbar">
     <div class="nav-container">
         <a href="#" class="logo">G<span>W</span></a>
-        
-        <div class="nav-tools">
-            <div class="location-picker" onclick="checkLocation()">
-                📍 <span id="userLocation">Select Location</span>
-            </div>
-            <input type="text" id="searchInput" placeholder="Search desserts...">
-        </div>
-
+        <input type="text" id="searchInput" placeholder="Search pastries...">
         <ul class="nav-links">
             <li><a href="#menu">Menu</a></li>
             <li class="cart-link" onclick="toggleCart()">
@@ -58,106 +30,87 @@
 <header class="hero" id="home">
     <div class="hero-text">
         <h1>Soft Bakes, Early Mornings.</h1>
-        <p>Premium patisserie delivered fresh to your doorstep.</p>
-        <a href="#menu" class="cta-btn">Order Now</a>
+        <p>Freshly baked cookies and custom cakes made with love.</p>
     </div>
 </header>
 
 <section class="products" id="menu">
-    <div class="menu-header">
-        <h2>The Morning Selection</h2>
-        <div class="filter-container">
-            <button class="filter-btn active" onclick="filterCategory('all', event)">All</button>
-            <button class="filter-btn" onclick="filterCategory('cookies', event)">Cookies</button>
-            <button class="filter-btn" onclick="filterCategory('pastries', event)">Pastries</button>
-            <button class="filter-btn" onclick="filterCategory('cakes', event)">Cakes</button>
-        </div>
+    <h2>The Morning Selection</h2>
+
+    <div class="filter-container">
+        <button class="filter-btn active" onclick="filterCategory('all', event)">All</button>
+        <button class="filter-btn" onclick="filterCategory('cookies', event)">Cookies</button>
+        <button class="filter-btn" onclick="filterCategory('pastries', event)">Pastries</button>
+        <button class="filter-btn" onclick="filterCategory('cakes', event)">Cakes</button>
     </div>
 
     <div class="product-grid" id="productGrid">
-        <div class="product-card" data-category="cakes">
-            <div class="badge bestseller">Bestseller</div>
-            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80">
-            <h3>Midnight Velvet Cake</h3>
-            <div class="dietary"><span class="eggless-icon">●</span> Eggless</div>
-            <p class="price">$45.00</p>
-            <button class="add-to-cart" onclick="addToCart('Midnight Velvet', 45.00, true)">Add to Cart</button>
         </div>
 
-        <div class="product-card" data-category="cakes">
-            <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=600&q=80">
-            <h3>Berry Cheesecake</h3>
-            <div class="dietary">Contains Egg</div>
-            <p class="price">$38.00</p>
-            <button class="add-to-cart" onclick="addToCart('Berry Cheesecake', 38.00, true)">Add to Cart</button>
-        </div>
-
-        <div class="product-card" data-category="cakes">
-            <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?auto=format&fit=crop&w=600&q=80">
-            <h3>Tiramisu Classico</h3>
-            <div class="dietary"><span class="eggless-icon">●</span> Eggless</div>
-            <p class="price">$39.00</p>
-            <button class="add-to-cart" onclick="addToCart('Tiramisu Classico', 39.00, true)">Add to Cart</button>
-        </div>
-
-        <div class="product-card" data-category="cookies">
-            <div class="badge bestseller">Bestseller</div>
-            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80">
-            <h3>Classic Choco Chip</h3>
-            <div class="dietary"><span class="eggless-icon">●</span> Eggless</div>
-            <p class="price">$12.00</p>
-            <button class="add-to-cart" onclick="addToCart('Classic Choco Chip', 12.00, false)">Add to Cart</button>
-        </div>
-
-        <div class="product-card" data-category="cookies">
-            <img src="https://images.unsplash.com/photo-1559622314-f83c65644781?auto=format&fit=crop&w=600&q=80">
-            <h3>Red Velvet Cream</h3>
-            <div class="dietary"><span class="eggless-icon">●</span> Eggless</div>
-            <p class="price">$14.00</p>
-            <button class="add-to-cart" onclick="addToCart('Red Velvet Cream', 14.00, false)">Add to Cart</button>
-        </div>
-
-        <div class="product-card" data-category="pastries">
-            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80">
-            <h3>Classic Croissant</h3>
-            <div class="dietary">Contains Egg</div>
-            <p class="price">$4.50</p>
-            <button class="add-to-cart" onclick="addToCart('Classic Croissant', 4.50, false)">Add to Cart</button>
-        </div>
-
-        <div class="product-card" data-category="pastries">
-            <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=600&q=80">
-            <h3>Cinnamon Swirl</h3>
-            <div class="dietary"><span class="eggless-icon">●</span> Eggless</div>
-            <p class="price">$5.50</p>
-            <button class="add-to-cart" onclick="addToCart('Cinnamon Swirl', 5.50, false)">Add to Cart</button>
-        </div>
-
-        </div>
+    <div id="noResults" style="display:none; padding: 40px; color: #888;">
+        <p>We couldn't find any pastries matching your search.</p>
+    </div>
 </section>
 
-<footer>
-    <div class="footer-grid">
-        <div>
-            <h3>The Golden Whisk</h3>
-            <p>Artisan bakes since 2026.</p>
+<div id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+        <h2>Your Basket</h2>
+        <button onclick="toggleCart()" class="close-btn">&times;</button>
+    </div>
+    <div id="cartItems" class="cart-items-container"></div>
+    <div class="cart-footer">
+        <div class="total-row">
+            <span>Total:</span>
+            <span id="cartTotal">$0.00</span>
         </div>
-        <div>
-            <h4>Quick Links</h4>
-            <p>Our Story</p>
-            <p>Store Locator</p>
-        </div>
-        <div>
-            <h4>Social</h4>
-            <p>Instagram</p>
-            <p>Facebook</p>
+        <button class="checkout-btn" onclick="openCheckout()">Checkout</button>
+    </div>
+</div>
+
+<div id="quickViewModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeQuickView()">&times;</span>
+        <div id="quickViewData"></div>
+        <div class="related-section">
+            <h4>Frequently Bought Together</h4>
+            <div id="relatedProducts" class="related-grid"></div>
         </div>
     </div>
-    <hr>
-    <p>© 2026 THE GOLDEN WHISK | All Rights Reserved</p>
-</footer>
+</div>
+
+<div id="authModal" class="modal">
+    <div class="modal-content auth-form">
+        <h3>Join the Whisk</h3>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button class="checkout-btn" onclick="handleAuth()">Login / Sign Up</button>
+    </div>
+</div>
+
+<div id="checkoutOverlay" class="checkout-overlay">
+    <div class="checkout-container">
+        <button class="back-btn" onclick="closeCheckout()">← Back to Store</button>
+        <div class="checkout-flex">
+            <div class="checkout-form">
+                <h3>Delivery Details</h3>
+                <input type="text" id="shipName" placeholder="Full Name">
+                <input type="text" id="shipAddr" placeholder="Address">
+                <button class="place-order-btn" onclick="finalizeOrder()">Place Order</button>
+            </div>
+            <div class="checkout-summary">
+                <h3>Order Summary</h3>
+                <div id="summaryItems"></div>
+                <hr>
+                <div class="summary-line"><span>Subtotal</span><span id="subtotalVal">$0.00</span></div>
+                <div class="summary-line"><span>Delivery</span><span>$5.00</span></div>
+                <div class="summary-line total"><span>Grand Total</span><span id="grandTotalVal">$0.00</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer><p>© 2026 THE GOLDEN WHISK</p></footer>
 
 <script src="script.js"></script>
 </body>
 </html>
-
