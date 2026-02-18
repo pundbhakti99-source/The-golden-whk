@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,18 +17,28 @@
 <nav class="navbar">
     <div class="nav-container">
         <a href="#" class="logo">G<span>W</span></a>
-        <input type="text" id="searchInput" placeholder="Search pastries...">
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" placeholder="Search 45+ items...">
+        </div>
         <ul class="nav-links">
             <li><a href="#menu">Menu</a></li>
-            <li class="cart-link" onclick="toggleCart()">
-                <a href="#">Cart (<span id="cartCount">0</span>)</a>
+            <li class="cart-link" onclick="toggleCart()" role="button">
+                Cart (<span id="cartCount">0</span>)
             </li>
         </ul>
     </div>
 </nav>
 
-<section class="products" id="menu" style="margin-top: 120px;">
+<header class="hero">
+    <div class="hero-content">
+        <h1>Artisan Bakes</h1>
+        <p>Freshly delivered across India</p>
+    </div>
+</header>
+
+<section class="products" id="menu">
     <h2>The Morning Selection</h2>
+    
     <div class="filter-container">
         <button class="filter-btn active" onclick="filterCategory('all', event)">All</button>
         <button class="filter-btn" onclick="filterCategory('cookies', event)">Cookies</button>
@@ -37,41 +46,72 @@
         <button class="filter-btn" onclick="filterCategory('cakes', event)">Cakes</button>
     </div>
 
-    <div class="product-grid" id="productGrid">
-        </div>
-    <div id="noResults" style="display:none; padding: 40px; color: #888;">No pastries found.</div>
+    <div class="product-grid" id="productGrid"></div>
+    
+    <div id="noResults" style="display:none; padding: 40px; text-align: center; color: #888; width: 100%;">
+        No pastries found matching your search.
+    </div>
 </section>
 
 <div id="cartDrawer" class="cart-drawer">
     <div class="cart-header">
         <h2>Your Basket</h2>
-        <button onclick="toggleCart()" class="close-btn">&times;</button>
+        <button onclick="toggleCart()" class="close-btn" aria-label="Close Cart">&times;</button>
     </div>
-    <div id="cartItems" class="cart-items-container"></div>
+    <div id="cartItems" class="cart-items-container">
+        </div>
     <div class="cart-footer">
-        <div class="total-row"><span>Total:</span><span id="cartTotal">₹0</span></div>
-        <button class="checkout-btn" onclick="openCheckout()">Checkout</button>
+        <div class="total-row">
+            <span>Subtotal:</span>
+            <span id="cartTotal">₹0</span>
+        </div>
+        <button class="checkout-btn" onclick="openCheckout()">Proceed to Checkout</button>
+    </div>
+</div>
+
+<div id="quickViewModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeQuickView()">&times;</span>
+        <div id="quickViewData"></div>
+    </div>
+</div>
+
+<div id="authModal" class="modal">
+    <div class="modal-content auth-form">
+        <h3>Join the Whisk</h3>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button class="checkout-btn" onclick="handleAuth()">Login / Sign Up</button>
     </div>
 </div>
 
 <div id="checkoutOverlay" class="checkout-overlay">
     <div class="checkout-container">
-        <button onclick="closeCheckout()">← Back</button>
+        <button class="back-btn" onclick="closeCheckout()">← Back to Store</button>
         <div class="checkout-flex">
             <div class="checkout-form">
                 <h3>Delivery Details</h3>
                 <input type="text" id="shipName" placeholder="Full Name">
-                <input type="text" id="shipAddr" placeholder="Address in India">
-                <button class="place-order-btn" onclick="finalizeOrder()">Confirm Order</button>
+                <input type="text" id="shipAddr" placeholder="Flat No, Street, City">
+                <input type="tel" id="shipPhone" placeholder="Mobile Number (+91)">
+                <button class="place-order-btn" onclick="finalizeOrder()">Place Order (Cash on Delivery)</button>
             </div>
             <div class="checkout-summary">
                 <h3>Order Summary</h3>
                 <div id="summaryItems"></div>
-                <div class="total">Grand Total: <span id="grandTotalVal">₹0</span></div>
+                <hr>
+                <div class="summary-line total">
+                    <span>Grand Total:</span>
+                    <span id="grandTotalVal">₹0</span>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<footer>
+    <p>© 2026 THE GOLDEN WHISK | Handcrafted with love.</p>
+</footer>
 
 <script src="script.js"></script>
 </body>
