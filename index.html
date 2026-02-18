@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,30 +28,18 @@
     </div>
 </nav>
 
-<header class="hero" id="home">
-    <div class="hero-text">
-        <h1>Soft Bakes, Early Mornings.</h1>
-        <p>Freshly baked cookies and custom cakes made with love.</p>
-    </div>
-</header>
-
-<section class="products" id="menu">
+<section class="products" id="menu" style="margin-top: 120px;">
     <h2>The Morning Selection</h2>
-
     <div class="filter-container">
         <button class="filter-btn active" onclick="filterCategory('all', event)">All</button>
         <button class="filter-btn" onclick="filterCategory('cookies', event)">Cookies</button>
         <button class="filter-btn" onclick="filterCategory('pastries', event)">Pastries</button>
         <button class="filter-btn" onclick="filterCategory('cakes', event)">Cakes</button>
     </div>
-    <div class="product-grid" id="productGrid">
-    </div>
 
-<div id="noResults" style="display:none; padding: 40px; text-align: center; color: #888; width: 100%;">
-    <p>We couldn't find any pastries matching your search. Try another keyword!</p>
-</div>
-    
-    
+    <div class="product-grid" id="productGrid">
+        </div>
+    <div id="noResults" style="display:none; padding: 40px; color: #888;">No pastries found.</div>
 </section>
 
 <div id="cartDrawer" class="cart-drawer">
@@ -60,57 +49,29 @@
     </div>
     <div id="cartItems" class="cart-items-container"></div>
     <div class="cart-footer">
-        <div class="total-row">
-            <span>Total:</span>
-            <span id="cartTotal">$0.00</span>
-        </div>
+        <div class="total-row"><span>Total:</span><span id="cartTotal">₹0</span></div>
         <button class="checkout-btn" onclick="openCheckout()">Checkout</button>
-    </div>
-</div>
-
-<div id="quickViewModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeQuickView()">&times;</span>
-        <div id="quickViewData"></div>
-        <div class="related-section">
-            <h4>Frequently Bought Together</h4>
-            <div id="relatedProducts" class="related-grid"></div>
-        </div>
-    </div>
-</div>
-
-<div id="authModal" class="modal">
-    <div class="modal-content auth-form">
-        <h3>Join the Whisk</h3>
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button class="checkout-btn" onclick="handleAuth()">Login / Sign Up</button>
     </div>
 </div>
 
 <div id="checkoutOverlay" class="checkout-overlay">
     <div class="checkout-container">
-        <button class="back-btn" onclick="closeCheckout()">← Back to Store</button>
+        <button onclick="closeCheckout()">← Back</button>
         <div class="checkout-flex">
             <div class="checkout-form">
                 <h3>Delivery Details</h3>
                 <input type="text" id="shipName" placeholder="Full Name">
-                <input type="text" id="shipAddr" placeholder="Address">
-                <button class="place-order-btn" onclick="finalizeOrder()">Place Order</button>
+                <input type="text" id="shipAddr" placeholder="Address in India">
+                <button class="place-order-btn" onclick="finalizeOrder()">Confirm Order</button>
             </div>
             <div class="checkout-summary">
                 <h3>Order Summary</h3>
                 <div id="summaryItems"></div>
-                <hr>
-                <div class="summary-line"><span>Subtotal</span><span id="subtotalVal">$0.00</span></div>
-                <div class="summary-line"><span>Delivery</span><span>$5.00</span></div>
-                <div class="summary-line total"><span>Grand Total</span><span id="grandTotalVal">$0.00</span></div>
+                <div class="total">Grand Total: <span id="grandTotalVal">₹0</span></div>
             </div>
         </div>
     </div>
 </div>
-
-<footer><p>© 2026 THE GOLDEN WHISK</p></footer>
 
 <script src="script.js"></script>
 </body>
