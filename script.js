@@ -1,3 +1,4 @@
+// 1. PRODUCT DATABASE
 const products = [
     // --- COOKIES (12 Items) ---
     { id: 1, name: "Classic Choco Chip", price: 120, category: "cookies", img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400" },
@@ -7,7 +8,7 @@ const products = [
     { id: 5, name: "Matcha Bliss", price: 160, category: "cookies", img: "https://images.unsplash.com/photo-1618923850107-d1a234d7a73a?w=400" },
     { id: 6, name: "Lemon Glaze Shortbread", price: 90, category: "cookies", img: "https://images.unsplash.com/photo-1584000344911-a7ad0238c350?w=400" },
     { id: 7, name: "White Choco Macadamia", price: 180, category: "cookies", img: "https://images.unsplash.com/photo-1551446591-142875a901a1?w=400" },
-    { id: 8, name: "Peanut Butter Swirl", price: 130, category: "cookies", img: "https://images.unsplash.com/photo-1584000344911-a7ad0238c350?w=400" },
+    { id: 8, name: "Peanut Butter Swirl", price: 130, category: "cookies", img: "https://images.unsplash.com/photo-1551446591-142875a901a1?w=400" },
     { id: 9, name: "Coconut Crunch", price: 100, category: "cookies", img: "https://images.unsplash.com/photo-1584000344911-a7ad0238c350?w=400" },
     { id: 10, name: "Salted Caramel Cookie", price: 145, category: "cookies", img: "https://images.unsplash.com/photo-1584000344911-a7ad0238c350?w=400" },
     { id: 11, name: "Double Espresso Cookie", price: 135, category: "cookies", img: "https://images.unsplash.com/photo-1584000344911-a7ad0238c350?w=400" },
@@ -51,15 +52,17 @@ const products = [
     { id: 45, name: "Caramel Drip Cake", price: 1100, category: "cakes", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" }
 ];
 
-// --- CORE FUNCTIONALITY ---
-
+// 2. STATE MANAGEMENT
 let cart = JSON.parse(localStorage.getItem('whiskCart')) || {};
 
+// 3. CORE RENDERING
 function renderProducts(items) {
     const grid = document.getElementById("productGrid");
+    if(!grid) return;
+    
     grid.innerHTML = items.map(p => `
         <div class="product-card">
-            <img src="${p.img}" alt="${p.name}" loading="lazy">
+            <img src="${p.img}" alt="${p.name}" loading="lazy" onclick="openQuickView(${p.id})">
             <div class="card-info">
                 <h3>${p.name}</h3>
                 <p class="price-tag">₹${p.price}</p>
@@ -69,6 +72,7 @@ function renderProducts(items) {
     `).join('');
 }
 
+// 4. CART FUNCTIONALITY
 function addToCart(id) {
     const product = products.find(p => p.id === id);
     if (cart[id]) {
@@ -76,34 +80,122 @@ function addToCart(id) {
     } else {
         cart[id] = { ...product, qty: 1 };
     }
-    saveCart();
+    saveAndUpdate();
+    // Optional: open cart automatically when item added
+    if(!document.getElementById("cartDrawer").classList.contains("open")) toggleCart();
+}
+
+function changeQty(id, delta) {
+    if (cart[id]) {
+        cart[id].qty += delta;
+        if (cart[id].qty <= 0) delete cart[id];
+        saveAndUpdate();
+    }
+}
+
+function saveAndUpdate() {
+    localStorage.setItem('whiskCart', JSON.stringify(cart));
     updateUI();
 }
 
-function saveCart() {
-    localStorage.setItem('whiskCart', JSON.stringify(cart));
-}
-
 function updateUI() {
-    // Updates cart count in navbar
+    // Update Navbar Count
     const count = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
     document.getElementById("cartCount").innerText = count;
+
+    // Update Drawer Items
+    const container = document.getElementById("cartItems");
+    const items = Object.values(cart);
+    let total = 0;
+
+    container.innerHTML = items.length > 0 ? items.map(item => {
+        total += (item.price * item.qty);
+        return `
+            <div class="cart-item-row">
+                <div class="cart-item-info">
+                    <h4>${item.name}</h4>
+                    <p>₹${item.price} x ${item.qty}</p>
+                </div>
+                <div class="qty-controls">
+                    <button onclick="changeQty(${item.id}, -1)">-</button>
+                    <span>${item.qty}</span>
+                    <button onclick="changeQty(${item.id}, 1)">+</button>
+                </div>
+            </div>
+        `;
+    }).join('') : '<p class="empty-msg">Your basket is empty</p>';
+
+    document.getElementById("cartTotal").innerText = `₹${total}`;
 }
 
-// Initial Load with Skeleton
+// 5. NAVIGATION & FILTERS
+function toggleCart() {
+    document.getElementById("cartDrawer").classList.toggle("open");
+}
+
+function filterCategory(cat, event) {
+    // Update active button state
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    if(event) event.target.classList.add('active');
+
+    const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
+    renderProducts(filtered);
+}
+
+// 6. SEARCH LOGIC
+document.getElementById("searchInput")?.addEventListener("input", (e) => {
+    const term = e.target.value.toLowerCase();
+    const filtered = products.filter(p => p.name.toLowerCase().includes(term));
+    
+    const noResults = document.getElementById("noResults");
+    if(filtered.length === 0) {
+        noResults.style.display = "block";
+    } else {
+        noResults.style.display = "none";
+    }
+    renderProducts(filtered);
+});
+
+// 7. CHECKOUT LOGIC
+function openCheckout() {
+    const items = Object.values(cart);
+    if(items.length === 0) return alert("Please add items to your basket first!");
+    
+    const summary = document.getElementById("summaryItems");
+    let subtotal = 0;
+    
+    summary.innerHTML = items.map(i => {
+        subtotal += (i.price * i.qty);
+        return `<div class="summary-line"><span>${i.name} (x${i.qty})</span><span>₹${i.price * i.qty}</span></div>`;
+    }).join('');
+    
+    document.getElementById("grandTotalVal").innerText = `₹${subtotal}`;
+    document.getElementById("checkoutOverlay").classList.add("active");
+}
+
+function closeCheckout() {
+    document.getElementById("checkoutOverlay").classList.remove("active");
+}
+
+function finalizeOrder() {
+    const name = document.getElementById("shipName").value;
+    if(!name) return alert("Please enter your name");
+    
+    alert(`Thank you ${name}! Your order has been placed successfully.`);
+    cart = {};
+    saveAndUpdate();
+    closeCheckout();
+    toggleCart();
+}
+
+// 8. INITIAL LOAD
 window.onload = () => {
     const grid = document.getElementById("productGrid");
+    // Show 8 skeletons initially
     grid.innerHTML = Array(8).fill('<div class="skeleton"></div>').join('');
     
     setTimeout(() => {
         renderProducts(products);
         updateUI();
-    }, 1200);
+    }, 1000);
 };
-
-// Search Logic
-document.getElementById("searchInput")?.addEventListener("input", (e) => {
-    const term = e.target.value.toLowerCase();
-    const filtered = products.filter(p => p.name.toLowerCase().includes(term));
-    renderProducts(filtered);
-});
