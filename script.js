@@ -1,67 +1,92 @@
-// 1. PRODUCT DATABASE
+// 1. DATA WITH RATES IN RS (INR)
 const products = [
-    { id: 1, name: "Classic Choco Chip", price: 12.00, category: "cookies", desc: "Our signature soft-bake.", img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80" },
-    { id: 2, name: "Red Velvet Cream", price: 14.00, category: "cookies", desc: "Velvety cocoa with white chips.", img: "https://images.unsplash.com/photo-1559622314-f83c65644781?auto=format&fit=crop&w=600&q=80" },
-    { id: 3, name: "Classic Croissant", price: 4.50, category: "pastries", desc: "24 layers of buttery goodness.", img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80" },
-    { id: 4, name: "Midnight Velvet", price: 45.00, category: "cakes", desc: "Dark chocolate ganache layers.", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" },
-    { id: 5, name: "Artisan Sourdough", price: 9.00, category: "pastries", desc: "Crusty outside, airy inside.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" },
-    { id: 6, name: "Berry Cheesecake", price: 38.00, category: "cakes", desc: "Creamy NY style with fresh fruit.", img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=600&q=80" }
+    // --- COOKIES (1-12) ---
+    { id: 1, name: "Classic Choco Chip", price: 120, category: "cookies", desc: "Signature soft-bake.", img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400" },
+    { id: 2, name: "Double Chocolate Fudge", price: 150, category: "cookies", desc: "Dark cocoa with lava center.", img: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400" },
+    { id: 3, name: "Oatmeal Raisin", price: 110, category: "cookies", desc: "Healthy oats and sun-dried raisins.", img: "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=400" },
+    { id: 4, name: "Red Velvet Cream", price: 140, category: "cookies", desc: "Velvety cocoa with white chips.", img: "https://images.unsplash.com/photo-1559622314-f83c65644781?w=400" },
+    { id: 5, name: "Matcha Green Tea", price: 160, category: "cookies", desc: "Premium Uji matcha infusion.", img: "https://images.unsplash.com/photo-1618923850107-d1a234d7a73a?w=400" },
+    { id: 6, name: "Lemon Shortbread", price: 90, category: "cookies", desc: "Buttery with a zesty glaze.", img: "https://images.unsplash.com/photo-1584000344911-a7ad0238c350?w=400" },
+    { id: 7, name: "Macadamia Nut", price: 180, category: "cookies", desc: "White chocolate and roasted nuts.", img: "https://images.unsplash.com/photo-1551446591-142875a901a1?w=400" },
+    { id: 8, name: "Peanut Butter Swirl", price: 130, category: "cookies", desc: "Creamy peanut butter core.", img: "https://images.unsplash.com/photo-1584000344911-a7ad0238c350?w=400" },
+    { id: 9, name: "Coconut Macaroon", price: 100, category: "cookies", desc: "Toasted coconut flakes.", img: "https://images.unsplash.com/photo-1584000344911-a7ad0238c350?w=400" },
+    { id: 10, name: "Salted Caramel Cookie", price: 145, category: "cookies", desc: "Gooey caramel with sea salt.", img: "https://images.unsplash.com/photo-1584000344911-a7ad0238c350?w=400" },
+    { id: 11, name: "Espresso Bean", price: 135, category: "cookies", desc: "Coffee infused dark dough.", img: "https://images.unsplash.com/photo-1584000344911-a7ad0238c350?w=400" },
+    { id: 12, name: "Sugar Sprinkles", price: 80, category: "cookies", desc: "Classic vanilla party cookie.", img: "https://images.unsplash.com/photo-1584000344911-a7ad0238c350?w=400" },
+
+    // --- PASTRIES (13-26) ---
+    { id: 13, name: "Classic Croissant", price: 95, category: "pastries", desc: "Buttery 24-layer pastry.", img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400" },
+    { id: 14, name: "Pain au Chocolat", price: 120, category: "pastries", desc: "Filled with semi-sweet chocolate.", img: "https://images.unsplash.com/photo-1621075160523-b936ad96132a?w=400" },
+    { id: 15, name: "Almond Danish", price: 135, category: "pastries", desc: "Topped with sliced almonds.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400" },
+    { id: 16, name: "Cinnamon Roll", price: 110, category: "pastries", desc: "Gooey center with vanilla icing.", img: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=400" },
+    { id: 17, name: "Apple Turnover", price: 115, category: "pastries", desc: "Spiced apple in flaky puff.", img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400" },
+    { id: 18, name: "Blueberry Scone", price: 90, category: "pastries", desc: "Fresh berries with sugar crust.", img: "https://images.unsplash.com/photo-1551446591-142875a901a1?w=400" },
+    { id: 19, name: "Strawberry Tart", price: 180, category: "pastries", desc: "Crème pâtissière and fresh fruit.", img: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400" },
+    { id: 20, name: "Eclair Classic", price: 140, category: "pastries", desc: "Choux pastry with chocolate.", img: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=400" },
+    { id: 21, name: "Cheese Sourdough", price: 280, category: "pastries", desc: "Artisan loaf with cheddar.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400" },
+    { id: 22, name: "Palmier", price: 70, category: "pastries", desc: "Crunchy heart-shaped pastry.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400" },
+    { id: 23, name: "Apricot Danish", price: 130, category: "pastries", desc: "Glazed apricot center.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400" },
+    { id: 24, name: "Baklava Squares", price: 220, category: "pastries", desc: "Honey and pistachio layers.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400" },
+    { id: 25, name: "Quiche Lorraine", price: 190, category: "pastries", desc: "Savory egg and bacon tart.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400" },
+    { id: 26, name: "Pistachio Croissant", price: 165, category: "pastries", desc: "Green pistachio cream fill.", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400" },
+
+    // --- CAKES (27-45) ---
+    { id: 27, name: "Midnight Velvet Cake", price: 850, category: "cakes", desc: "Dark chocolate ganache layers.", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400" },
+    { id: 28, name: "Berry Cheesecake", price: 1200, category: "cakes", desc: "Creamy NY style with fresh fruit.", img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400" },
+    { id: 29, name: "Birthday Funfetti", price: 950, category: "cakes", desc: "Vanilla bean with party sprinkles.", img: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400" },
+    { id: 30, name: "Strawberry Dream", price: 1100, category: "cakes", desc: "Light sponge with fresh cream.", img: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400" },
+    { id: 31, name: "Carrot Spice Cake", price: 800, category: "cakes", desc: "Spiced walnut and cream cheese.", img: "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400" },
+    { id: 32, name: "Tiramisu Classico", price: 1300, category: "cakes", desc: "Coffee-soaked Italian delicacy.", img: "https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=400" },
+    { id: 33, name: "Salted Caramel Luxury", price: 1400, category: "cakes", desc: "Sweet and salty caramel drip.", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" },
+    { id: 34, name: "Hazelnut Praline", price: 1550, category: "cakes", desc: "Crunchy hazelnut mousse.", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" },
+    { id: 35, name: "Lemon Meringue", price: 750, category: "cakes", desc: "Tangy curd with toasted peak.", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" },
+    { id: 36, name: "Black Forest", price: 900, category: "cakes", desc: "Cherries, cream, and chocolate.", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" },
+    { id: 37, name: "Mango Summer Lush", price: 1050, category: "cakes", desc: "Seasonal mango pulp sponge.", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" },
+    { id: 38, name: "Pistachio Rose Cake", price: 1600, category: "cakes", desc: "Elegant floral and nut flavors.", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" },
+    { id: 39, name: "Opera Cake", price: 1800, category: "cakes", desc: "Six layers of French luxury.", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" },
+    { id: 40, name: "Victoria Sponge", price: 650, category: "cakes", desc: "Classic jam and cream tea cake.", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" },
+    { id: 41, name: "Coffee Walnut", price: 850, category: "cakes", desc: "Perfect with your morning brew.", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" },
+    { id: 42, name: "Blueberry Bliss", price: 1100, category: "cakes", desc: "Fresh berries in every bite.", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" },
+    { id: 43, name: "Dark Truffle Slab", price: 1250, category: "cakes", desc: "70% cocoa solid ganache.", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" },
+    { id: 44, name: "Lotus Biscoff Cake", price: 1700, category: "cakes", desc: "Caramelized biscuit topping.", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" },
+    { id: 45, name: "Honey Almond Cake", price: 780, category: "cakes", desc: "Glazed with organic honey.", img: "https://images.unsplash.com/photo-1519340333755-5672c7ec9cb2?w=400" }
 ];
 
-// 2. STATE MANAGEMENT (LocalStorage)
-let cart = JSON.parse(localStorage.getItem('whiskCart')) || {};
-let currentUser = JSON.parse(localStorage.getItem('whiskUser')) || null;
 
-// 3. INITIALIZE SITE
+// 2. PERSISTENCE & STATE
+let cart = JSON.parse(localStorage.getItem('whiskCartINR')) || {};
+
 window.onload = () => {
-    showSkeletons();
+    // Skeleton Loading Effect
+    const grid = document.getElementById("productGrid");
+    grid.innerHTML = Array(4).fill('<div class="product-card skeleton"><div class="skeleton-img"></div><div class="skeleton-text"></div></div>').join('');
+    
     setTimeout(() => {
         renderProducts(products);
         updateCartUI();
-        updateAuthUI();
-    }, 1200); // Simulated loading time
+    }, 1000);
 };
 
-// 4. RENDERING LOGIC
-function renderProducts(productsToDisplay) {
+// 3. RENDERING
+function renderProducts(items) {
     const grid = document.getElementById("productGrid");
-    const noResults = document.getElementById("noResults");
-    grid.innerHTML = "";
-
-    if (productsToDisplay.length === 0) {
-        noResults.style.display = "block";
-    } else {
-        noResults.style.display = "none";
-        productsToDisplay.forEach(p => {
-            grid.innerHTML += `
-                <div class="product-card">
-                    <img src="${p.img}" alt="${p.name}" loading="lazy" onclick="openQuickView(${p.id})">
-                    <h3>${p.name}</h3>
-                    <p>${p.desc}</p>
-                    <p class="price">$${p.price.toFixed(2)}</p>
-                    <button class="add-to-cart" onclick="addToCart(${p.id})">Add to Cart</button>
-                </div>`;
-        });
-    }
-}
-
-function showSkeletons() {
-    const grid = document.getElementById("productGrid");
-    grid.innerHTML = Array(4).fill(0).map(() => `
+    grid.innerHTML = items.map(p => `
         <div class="product-card">
-            <div class="skeleton skeleton-img"></div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text" style="width:50%"></div>
-        </div>`).join('');
+            <img src="${p.img}" loading="lazy">
+            <h3>${p.name}</h3>
+            <p class="price">₹${p.price}</p>
+            <button class="add-to-cart" onclick="addToCart(${p.id})">Add to Cart</button>
+        </div>
+    `).join('');
 }
 
-// 5. CART & QUANTITY LOGIC
+// 4. CART LOGIC (Grouped by Quantity)
 function addToCart(id) {
-    const product = products.find(p => p.id === id);
+    const p = products.find(item => item.id === id);
     if (cart[id]) {
         cart[id].qty++;
     } else {
-        cart[id] = { ...product, qty: 1 };
+        cart[id] = { ...p, qty: 1 };
     }
     saveAndRefresh();
     if (!document.getElementById("cartDrawer").classList.contains("open")) toggleCart();
@@ -76,7 +101,7 @@ function changeQty(id, delta) {
 }
 
 function saveAndRefresh() {
-    localStorage.setItem('whiskCart', JSON.stringify(cart));
+    localStorage.setItem('whiskCartINR', JSON.stringify(cart));
     updateCartUI();
 }
 
@@ -89,83 +114,42 @@ function updateCartUI() {
         total += item.price * item.qty;
         count += item.qty;
         return `
-            <div class="cart-item-row">
-                <div><strong>${item.name}</strong><br>$${item.price.toFixed(2)}</div>
+            <div class="cart-item-row" style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee;">
+                <div><strong>${item.name}</strong><br>₹${item.price}</div>
                 <div class="qty-controls">
                     <button onclick="changeQty(${item.id}, -1)">-</button>
                     <span>${item.qty}</span>
                     <button onclick="changeQty(${item.id}, 1)">+</button>
                 </div>
             </div>`;
-    }).join('') : '<p class="empty-msg">Your basket is empty.</p>';
+    }).join('') : '<p>Your basket is empty.</p>';
 
-    document.getElementById("cartTotal").innerText = `$${total.toFixed(2)}`;
+    document.getElementById("cartTotal").innerText = `₹${total}`;
     document.getElementById("cartCount").innerText = count;
 }
 
-// 6. QUICK VIEW & RELATED
-function openQuickView(id) {
-    const p = products.find(p => p.id === id);
-    document.getElementById("quickViewData").innerHTML = `
-        <div class="qv-flex">
-            <img src="${p.img}" style="width:100%; max-width:250px; border-radius:10px;">
-            <div>
-                <h2>${p.name}</h2>
-                <p>${p.desc}</p>
-                <p class="price">$${p.price.toFixed(2)}</p>
-                <button class="add-to-cart" onclick="addToCart(${p.id})">Add to Basket</button>
-            </div>
-        </div>`;
-    
-    // Related items logic
-    const related = products.filter(item => item.category === p.category && item.id !== id).slice(0, 2);
-    document.getElementById("relatedProducts").innerHTML = related.map(r => `
-        <div class="related-card" onclick="openQuickView(${r.id})">
-            <img src="${r.img}">
-            <p>${r.name}</p>
-        </div>`).join('');
-    
-    document.getElementById("quickViewModal").style.display = "block";
-}
-
-function closeQuickView() { document.getElementById("quickViewModal").style.display = "none"; }
-function toggleCart() { document.getElementById("cartDrawer").classList.toggle("open"); }
-
-// 7. SEARCH & FILTERS
-document.getElementById("searchInput").addEventListener("input", (e) => {
+// 5. SEARCH & FILTER
+document.getElementById("searchInput").addEventListener("input", e => {
     const term = e.target.value.toLowerCase();
     renderProducts(products.filter(p => p.name.toLowerCase().includes(term)));
 });
 
-function filterCategory(cat, e) {
-    document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
-    e.target.classList.add("active");
-    renderProducts(cat === 'all' ? products : products.filter(p => p.category === cat));
-}
+function toggleCart() { document.getElementById("cartDrawer").classList.toggle("open"); }
 
-// 8. CHECKOUT & AUTH
+// 6. CHECKOUT
 function openCheckout() {
-    if (Object.keys(cart).length === 0) return alert("Basket is empty!");
-    const sub = Object.values(cart).reduce((s, i) => s + (i.price * i.qty), 0);
-    document.getElementById("subtotalVal").innerText = `$${sub.toFixed(2)}`;
-    document.getElementById("grandTotalVal").innerText = `$${(sub + 5).toFixed(2)}`;
+    const items = Object.values(cart);
+    if (!items.length) return alert("Cart is empty!");
+    const sub = items.reduce((s, i) => s + (i.price * i.qty), 0);
+    document.getElementById("summaryItems").innerHTML = items.map(i => `<div>${i.name} x ${i.qty} = ₹${i.price*i.qty}</div>`).join('');
+    document.getElementById("grandTotalVal").innerText = `₹${sub + 50}`; // ₹50 delivery
     document.getElementById("checkoutOverlay").classList.add("active");
 }
 
 function finalizeOrder() {
-    if(!document.getElementById("shipName").value) return alert("Please enter your name!");
-    alert("Thank you! Your order has been placed.");
+    alert("Order Received! We will deliver shortly.");
     cart = {}; saveAndRefresh();
     document.getElementById("checkoutOverlay").classList.remove("active");
 }
 
-function handleAuth() {
-    const name = document.getElementById("username").value;
-    if(!name) return;
-    localStorage.setItem('whiskUser', JSON.stringify({ name }));
-    location.reload();
-}
-
-function updateAuthUI() {
-    if(currentUser) document.getElementById("welcomeMsg").innerText = `Hello, ${currentUser.name}!`;
-}
+function closeCheckout() { document.getElementById("checkoutOverlay").classList.remove("active"); }
